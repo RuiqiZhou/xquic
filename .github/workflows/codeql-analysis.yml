@@ -35,13 +35,13 @@ jobs:
         cmake -DBUILD_SHARED_LIBS=0 -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" ..
         make ssl crypto
         SSL_TYPE_STR="boringssl"
-        SSL_PATH_STR="${PWD}"
-        SSL_INC_PATH_STR="${PWD}/include"
-        SSL_LIB_PATH_STR="${PWD}/build/ssl/libssl.a;${PWD}/build/crypto/libcrypto.a"
+        SSL_PATH_STR="$PWD"
+        SSL_INC_PATH_STR="$PWD/include"
+        SSL_LIB_PATH_STR="$PWD/build/ssl/libssl.a;$PWD/build/crypto/libcrypto.a"
         cd ../../../
         git submodule update --init --recursive
         mkdir build; cd build
-        cmake -DSSL_TYPE=${SSL_TYPE_STR} -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
+        cmake -DSSL_TYPE=$SSL_TYPE_STR -DSSL_PATH=$SSL_PATH_STR -DSSL_INC_PATH=$SSL_INC_PATH_STR -DSSL_LIB_PATH=$SSL_LIB_PATH_STR ..
         make -j
 
     - name: Perform CodeQL Analysis
