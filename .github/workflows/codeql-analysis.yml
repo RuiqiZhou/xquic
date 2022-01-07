@@ -21,13 +21,13 @@ jobs:
         
     # Install dependencies and build submodules before starting analysis.
     - run: |
-        git clone https://boringssl.googlesource.com/boringssl
-        cd boringssl
-        cmake -DBUILD_SHARED_LIBS=0 -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" ..
-        make ssl crypto
+        git clone https://github.com/BabaSSL/BabaSSL.git babassl
+        cd babassl/
+        ./config --prefix=/usr/local/babassl
+        make -j
         SSL_PATH_STR="${PWD}"
         SSL_INC_PATH_STR="${PWD}/include"
-        SSL_LIB_PATH_STR="${PWD}/build/ssl/libssl.a;${PWD}/build/crypto/libcrypto.a"
+        SSL_LIB_PATH_STR="${PWD}/libssl.a;${PWD}/libcrypto.a"
         cd -
 
     # Initializes the CodeQL tools for scanning.
@@ -39,7 +39,7 @@ jobs:
     - run: |
         git submodule update --init --recursive
         mkdir build; cd build
-        cmake -DSSL_TYPE=boringssl -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
+        cmake ..
         make -j
 
     - name: Perform CodeQL Analysis
