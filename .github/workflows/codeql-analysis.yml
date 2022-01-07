@@ -31,6 +31,7 @@ jobs:
         mkdir -p build
         cd build
         sudo bash ../scripts/xquic_test.sh
+        cd ../
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
