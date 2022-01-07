@@ -28,22 +28,7 @@ jobs:
 
     - name: boringssl
       run: |
-        mkdir -p third_party/
-        git clone https://github.com/BabaSSL/BabaSSL.git ./third_party/babassl
-        cd ./third_party/babassl/
-        ./config --prefix=/usr/local/babassl
-        make -j
-        SSL_TYPE_STR="babassl"
-        SSL_PATH_STR="$(pwd)"
-        SSL_INC_PATH_STR="$(pwd)/include"
-        SSL_LIB_PATH_STR="$(pwd)/libssl.a;$(pwd)/libcrypto.a"
-        cd -
-
-        # build xquic with BabaSSL
-        git submodule update --init --recursive
-        mkdir -p build; cd build
-        cmake -DSSL_TYPE=$SSL_TYPE_STR -DSSL_PATH=$SSL_PATH_STR -DSSL_INC_PATH=$SSL_INC_PATH_STR -DSSL_LIB_PATH=$SSL_LIB_PATH_STR ..
-        make -j
+        sudo sh ../scripts/xquic_test.sh
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
