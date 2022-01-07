@@ -21,7 +21,7 @@ jobs:
         
     # Install dependencies and build submodules before starting analysis.
     - run: |
-        git clone git@github.com:BabaSSL/BabaSSL.git
+        git clone https://github.com/BabaSSL/BabaSSL.git
         cd BabaSSL
         ./config --prefix=/usr/local/babassl
         make -j
