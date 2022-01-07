@@ -11,7 +11,6 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    container: docker.io/centos:7
 
     steps:
     - name: Checkout repository
@@ -20,14 +19,13 @@ jobs:
         fetch-depth: 2
         submodules: 'recursive'
 
-
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
       with:
         languages: cpp
 
-    - name: build
+    - name: Build xquic with boringssl
       run: |
         sudo apt-get install -y build-essential cmake vim libevent-dev tar git python net-tools
         git clone https://github.com/google/boringssl.git ./third_party/boringssl
