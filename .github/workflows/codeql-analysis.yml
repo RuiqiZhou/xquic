@@ -30,7 +30,7 @@ jobs:
       run: |
         mkdir -p build
         cd build
-        sudo sh ../scripts/xquic_test.sh
+        sudo bash ../scripts/xquic_test.sh
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
