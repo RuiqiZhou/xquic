@@ -26,7 +26,8 @@ jobs:
       with:
         languages: cpp
 
-    - run: |
+    - name: boringssl
+      run: |
         mkdir -p third_party/
         git clone https://github.com/google/boringssl.git ./third_party/boringssl
         cd ./third_party/boringssl
@@ -38,7 +39,13 @@ jobs:
         SSL_INC_PATH_STR="${PWD}/include"
         SSL_LIB_PATH_STR="${PWD}/build/ssl/libssl.a;${PWD}/build/crypto/libcrypto.a"
         cd -
+
+    - name: submodule
+      run: |
         git submodule update --init --recursive
+
+    - name: xquic
+      run: |
         mkdir build; cd build
         cmake -DSSL_TYPE=${SSL_TYPE_STR} -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
         make -j
