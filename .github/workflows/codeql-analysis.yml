@@ -25,6 +25,9 @@ jobs:
         cd BabaSSL
         ./config --prefix=/usr/local/babassl
         make -j
+        SSL_PATH_STR="${PWD}"
+        SSL_INC_PATH_STR="${PWD}/include"
+        SSL_LIB_PATH_STR="${PWD}/libssl.a;${PWD}/libcrypto.a"
         cd -
 
     # Initializes the CodeQL tools for scanning.
@@ -36,7 +39,7 @@ jobs:
     - run: |
         git submodule update --init --recursive
         mkdir build; cd build
-        cmake ..
+        cmake -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
         make -j
 
     - name: Perform CodeQL Analysis
