@@ -21,7 +21,7 @@ jobs:
 
     - name: Linux Setup
       run: |
-        sudo apt-get install -y build-essential libevent-dev
+        sudo apt-get install -y build-essential cmake git g++ make binutils autoconf automake autotools-dev libtool vim libevent-dev tar python net-tools
 
     - name: Cunit Setup
       run: |
@@ -38,33 +38,69 @@ jobs:
       run: |
         git submodule update --init --recursive
 
-    - name: Build BoringSSL
+    - name: Build BabaSSL
       run: |
-        sudo sh ./scripts/build_boringssl.sh
-
-    - name: Build xquic
-      run: |
-        SSL_TYPE_STR="boringssl"
-        SSL_PATH_STR="${PWD}/third_party/boringssl"
-        SSL_INC_PATH_STR="${PWD}/third_party/boringssl/include"
-        SSL_LIB_PATH_STR="${PWD}/third_party/boringssl/build/ssl/libssl.a;${PWD}/third_party/boringssl/build/crypto/libcrypto.a"
+        git clone https://github.com/BabaSSL/BabaSSL.git ./third_party/babassl
+        cd ./third_party/babassl/
+        git checkout 4c2b60613d19eb9a704df15dd5dbf8d6da2ed713
+        ./config --prefix=/usr/local/babassl
+        make -j
+        SSL_TYPE_STR="babassl"
+        SSL_PATH_STR="${PWD}"
+        SSL_INC_PATH_STR="${PWD}/include"
+        SSL_LIB_PATH_STR="${PWD}/libssl.a;${PWD}/libcrypto.a"
+        cd ../../
+        echo "$SSL_TYPE_STR"
+        echo "$SSL_PATH_STR"
+        echo "$SSL_INC_PATH_STR"
+        echo "$SSL_LIB_PATH_STR"
         mkdir -p build
         cd build
-        cmake -DGCOV=on -DCMAKE_BUILD_TYPE=Debug -DXQC_ENABLE_TESTING=1 -DXQC_SUPPORT_SENDMMSG_BUILD=1 -DXQC_ENABLE_EVENT_LOG=1 -DXQC_ENABLE_BBR2=1 -DXQC_DISABLE_RENO=0 -DSSL_TYPE=${SSL_TYPE_STR} -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
+        cmake -DGCOV=on -DCMAKE_BUILD_TYPE=Debug -DXQC_ENABLE_TESTING=1 -DXQC_SUPPORT_SENDMMSG_BUILD=1 -DXQC_ENABLE_EVENT_LOG=1 CMAKE_C_FLAGS="-Werror=no-stringop-overflow"  CMAKE_C_FLAGS_DEBUG="-Werror=no-stringop-overflow" -DSSL_TYPE=${SSL_TYPE_STR} -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
         make -j
 
-    - name: Unit Test
-      run: |
-        cd build
-        keyfile=server.key
-        certfile=server.crt
-        openssl req -newkey rsa:2048 -x509 -nodes -keyout "$keyfile" -new -out "$certfile" -subj /CN=test.xquic.com
-        ./tests/run_tests | tee -a xquic_test.log
-        ../scripts/case_test.sh | tee -a xquic_test.log
-        gcovr -r .. --xml -o ../coverage1.xml
+    # - name: Test Xquic with BabaSSL
+    #   run: |
+    #     cd build
+    #     keyfile=server.key
+    #     certfile=server.crt
+    #     openssl req -newkey rsa:2048 -x509 -nodes -keyout "$keyfile" -new -out "$certfile" -subj /CN=test.xquic.com
+    #     ./tests/run_tests | tee -a xquic_test.log
+    #     ../scripts/case_test.sh | tee -a xquic_test.log
+    #     gcovr -r .. --xml -o ../coverage1.xml
 
-    - name: CodeCov
-      uses: codecov/codecov-action@v2
-      with:
-        files: ./coverage1.xml
+    # - name: Build BoringSSL
+    #   run: |
+    #     git clone https://github.com/google/boringssl.git ./third_party/boringssl
+    #     cd ./third_party/boringssl
+    #     mkdir -p build
+    #     cd build
+    #     cmake -DBUILD_SHARED_LIBS=0 -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" ..
+    #     make ssl crypto
+
+    # - name: Build Xquic with BoringSSL
+    #   run: |
+    #     SSL_TYPE_STR="boringssl"
+    #     SSL_PATH_STR="${PWD}/third_party/boringssl"
+    #     SSL_INC_PATH_STR="${PWD}/third_party/boringssl/include"
+    #     SSL_LIB_PATH_STR="${PWD}/third_party/boringssl/build/ssl/libssl.a;${PWD}/third_party/boringssl/build/crypto/libcrypto.a"
+    #     mkdir -p build
+    #     cd build
+    #     cmake -DGCOV=on -DCMAKE_BUILD_TYPE=Debug -DXQC_ENABLE_TESTING=1 -DXQC_SUPPORT_SENDMMSG_BUILD=1 -DXQC_ENABLE_EVENT_LOG=1 -DXQC_ENABLE_BBR2=1 -DXQC_DISABLE_RENO=0 -DSSL_TYPE=${SSL_TYPE_STR} -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
+    #     make -j
+
+    # - name: Test Xquic with BoringSSL
+    #   run: |
+    #     cd build
+    #     keyfile=server.key
+    #     certfile=server.crt
+    #     openssl req -newkey rsa:2048 -x509 -nodes -keyout "$keyfile" -new -out "$certfile" -subj /CN=test.xquic.com
+    #     ./tests/run_tests | tee -a xquic_test.log
+    #     ../scripts/case_test.sh | tee -a xquic_test.log
+    #     gcovr -r .. --xml -o ../coverage2.xml
+
+    # - name: CodeCov
+    #   uses: codecov/codecov-action@v2
+    #   with:
+    #     files: ./coverage1.xml
 
