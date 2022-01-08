@@ -19,17 +19,28 @@ jobs:
         fetch-depth: 2
         submodules: 'recursive'
 
-    - name: Linux setup
+    - name: Linux Setup
       run: |
-        sudo apt-get install -y build-essential cmake vim libevent-dev tar git python net-tools
-    
-    - name: Build BoringSSL
+        sudo apt-get install -y build-essential libevent-dev
+
+    - name: Cunit Setup
       run: |
-        sudo sh ./scripts/build_boringssl.sh
+        sudo apt-get install -y libcunit1 libcunit1-doc libcunit1-dev
+
+    - name: Gcov Setup
+      run: |
+        #install gcovr which can output code coverage summary
+        sudo apt-get install -y python3-pip
+        sudo apt-get install -y python3-lxml
+        sudo pip3 install gcovr
 
     - name: Update Submodule
       run: |
         git submodule update --init --recursive
+
+    - name: Build BoringSSL
+      run: |
+        sudo sh ./scripts/build_boringssl.sh
 
     - name: Build xquic
       run: |
@@ -41,3 +52,19 @@ jobs:
         cd build
         cmake -DGCOV=on -DCMAKE_BUILD_TYPE=Debug -DXQC_ENABLE_TESTING=1 -DXQC_SUPPORT_SENDMMSG_BUILD=1 -DXQC_ENABLE_EVENT_LOG=1 -DXQC_ENABLE_BBR2=1 -DXQC_DISABLE_RENO=0 -DSSL_TYPE=${SSL_TYPE_STR} -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
         make -j
+
+    - name: Unit Test
+      run: |
+        cd build
+        keyfile=server.key
+        certfile=server.crt
+        openssl req -newkey rsa:2048 -x509 -nodes -keyout "$keyfile" -new -out "$certfile" -subj /CN=test.xquic.com
+        ./tests/run_tests | tee -a xquic_test.log
+        ../scripts/case_test.sh | tee -a xquic_test.log
+        gcovr -r .. --xml -o ../coverage1.xml
+
+    - name: CodeCov
+      uses: codecov/codecov-action@v2
+      with:
+        files: ./coverage1.xml
+
