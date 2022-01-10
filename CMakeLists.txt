@@ -234,18 +234,20 @@ add_library(
 if(PLATFORM MATCHES "mac")
     target_link_libraries(
         xquic
-        "-ldl -Wl,-all_load"
+        "-Wl,-all_load"
         ${SSL_LIB_PATH}
         "-Wl"
         -lpthread
+        -ldl
     )
 else()
     target_link_libraries(
         xquic
-        "-ldl -Wl,--whole-archive -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/scripts/xquic.lds"
+        "-Wl,--whole-archive -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/scripts/xquic.lds"
         ${SSL_LIB_PATH}
         "-Wl,--no-whole-archive"
         -lpthread
+        -ldl
     )
 endif()
 
