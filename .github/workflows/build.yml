@@ -21,18 +21,18 @@ jobs:
 
     - name: Linux Setup
       run: |
-        apt-get update
-        apt-get install -y build-essential cmake vim libevent-dev tar git python net-tools
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake vim libevent-dev tar git python net-tools
 
     - name: Cunit Setup
       run: |
-        apt-get install -y libcunit1 libcunit1-doc libcunit1-dev
+        sudo apt-get install -y libcunit1 libcunit1-doc libcunit1-dev
 
     - name: Gcov Setup
       run: |
-        apt-get install -y python3-pip
-        apt-get install -y python3-lxml
-        pip3 install gcovr
+        sudo apt-get install -y python3-pip
+        sudo apt-get install -y python3-lxml
+        sudo pip3 install gcovr
 
     - name: Update Submodule
       run: |
