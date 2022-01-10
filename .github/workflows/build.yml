@@ -21,18 +21,18 @@ jobs:
 
     - name: Linux Setup
       run: |
-        sudo apt-get install -y build-essential cmake git g++ make binutils autoconf automake autotools-dev libtool vim libevent-dev tar python net-tools
+        apt-get update
+        apt-get install -y build-essential cmake vim libevent-dev tar git python net-tools
 
     - name: Cunit Setup
       run: |
-        sudo apt-get install -y libcunit1 libcunit1-doc libcunit1-dev
+        apt-get install -y libcunit1 libcunit1-doc libcunit1-dev
 
     - name: Gcov Setup
       run: |
-        #install gcovr which can output code coverage summary
-        sudo apt-get install -y python3-pip
-        sudo apt-get install -y python3-lxml
-        sudo pip3 install gcovr
+        apt-get install -y python3-pip
+        apt-get install -y python3-lxml
+        pip3 install gcovr
 
     - name: Update Submodule
       run: |
@@ -42,8 +42,7 @@ jobs:
       run: |
         git clone https://github.com/BabaSSL/BabaSSL.git ./third_party/babassl
         cd ./third_party/babassl/
-        git checkout 4c2b60613d19eb9a704df15dd5dbf8d6da2ed713
-        ./config --prefix=/usr/local/babassl
+        ./config
         make -j
         SSL_TYPE_STR="babassl"
         SSL_PATH_STR="${PWD}"
