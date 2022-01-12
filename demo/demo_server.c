@@ -1145,7 +1145,6 @@ xqc_demo_svr_parse_args(int argc, char *argv[], xqc_demo_svr_args_t *args)
     int ch = 0;
     while((ch = getopt(argc, argv, "p:c:CD:l:L:6k:r")) != -1){
         switch (ch) {
-        
         /* listen port */
         case 'p':
             printf("option port :%s\n", optarg);
@@ -1157,7 +1156,6 @@ xqc_demo_svr_parse_args(int argc, char *argv[], xqc_demo_svr_args_t *args)
             printf("option cong_ctl :%s\n", optarg);
             /* r:reno b:bbr c:cubic */
             switch (*optarg) {
-            
             case 'b':
                 args->net_cfg.cc = CC_TYPE_BBR;
                 break;
@@ -1191,7 +1189,7 @@ xqc_demo_svr_parse_args(int argc, char *argv[], xqc_demo_svr_args_t *args)
             break;
 
         /* log path */
-        case 'L': // log directory
+        case 'L': /* log directory */
             printf("option log directory :%s\n", optarg);
             snprintf(args->env_cfg.log_path, sizeof(args->env_cfg.log_path), "%s", optarg);
             break;
@@ -1203,7 +1201,7 @@ xqc_demo_svr_parse_args(int argc, char *argv[], xqc_demo_svr_args_t *args)
             break;
 
         /* key out path */
-        case 'k': // key out path
+        case 'k': /* key out path */
             printf("option key output file: %s\n", optarg);
             args->env_cfg.key_output_flag = 1;
             strncpy(args->env_cfg.key_out_path, optarg, sizeof(args->env_cfg.key_out_path) - 1);
@@ -1282,7 +1280,6 @@ xqc_demo_svr_init_conn_settings(xqc_demo_svr_args_t *args)
 {
     xqc_cong_ctrl_callback_t ccc = {0};
     switch (args->net_cfg.cc) {
-    
     case CC_TYPE_BBR:
         ccc = xqc_bbr_cb;
         break;
@@ -1386,7 +1383,6 @@ xqc_demo_svr_init_xquic_engine(xqc_demo_svr_ctx_t *ctx, xqc_demo_svr_args_t *arg
     config.cid_len = 12;
 
     switch (args->env_cfg.log_level) {
-    
     case 'd':
         config.cfg_log_level = XQC_LOG_DEBUG;
         break;

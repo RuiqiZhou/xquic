@@ -813,7 +813,7 @@ xqc_client_stream_send(xqc_stream_t *stream, void *user_data)
     }
 
     int fin = 1;
-    if (g_test_case == 4) { //test fin_only
+    if (g_test_case == 4) { /* test fin_only */
         fin = 0;
     }
 
@@ -829,7 +829,7 @@ xqc_client_stream_send(xqc_stream_t *stream, void *user_data)
         }
     }
 
-    if (g_test_case == 4) { //test fin_only
+    if (g_test_case == 4) { /* test fin_only */
         if (user_stream->send_offset == user_stream->send_body_len) {
             fin = 1;
             usleep(200*1000);
@@ -932,7 +932,7 @@ xqc_client_stream_read_notify(xqc_stream_t *stream, void *user_data)
                (user_stream->send_body_len + user_stream->recv_body_len)*1000/(now_us - user_stream->start_time),
                user_stream->send_body_len, user_stream->recv_body_len);
 
-        // write to eval file
+        /* write to eval file */
         /*{
             FILE* fp = NULL;
             fp = fopen("eval_result.txt", "a+");
@@ -1215,7 +1215,7 @@ xqc_client_request_send(xqc_h3_request_t *h3_request, user_stream_t *user_stream
     }
 
     int fin = 1;
-    if (g_test_case == 4 || g_test_case == 31 || g_test_case == 35 || g_test_case == 36) { //test fin_only
+    if (g_test_case == 4 || g_test_case == 31 || g_test_case == 35 || g_test_case == 36) { /* test fin_only */
         fin = 0;
     }
 
@@ -1269,7 +1269,7 @@ xqc_client_request_send(xqc_h3_request_t *h3_request, user_stream_t *user_stream
         }
     }
 
-    if (g_test_case == 4) { //test fin_only
+    if (g_test_case == 4) { /* test fin_only */
         if (user_stream->send_offset == user_stream->send_body_len) {
             fin = 1;
             usleep(200*1000);
@@ -1448,7 +1448,7 @@ int xqc_client_request_read_notify(xqc_h3_request_t *h3_request, xqc_request_not
                (stats.send_body_size + stats.recv_body_size)*1000/(now_us - user_stream->start_time),
                stats.send_body_size, stats.recv_body_size);
 
-        // write to eval file
+        /* write to eval file */
         /*{
             FILE* fp = NULL;
             fp = fopen("eval_result.txt", "a+");
@@ -1717,7 +1717,7 @@ xqc_client_timeout_callback(int fd, short what, void *arg)
     int rc;
     static int restart_after_a_while = 1;
 
-    // write to eval file
+    /* write to eval file */
     /*{
         FILE* fp = NULL;
         fp = fopen("eval_result.txt", "a+");
