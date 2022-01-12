@@ -2125,7 +2125,7 @@ main(int argc, char *argv[])
     xqc_demo_cli_parse_args(argc, argv, args);
 
     /* init client ctx */
-    xqc_demo_cli_ctx_t *ctx = calloc(1, sizeof(xqc_demo_cli_ctx_t));;
+    xqc_demo_cli_ctx_t *ctx = calloc(1, sizeof(xqc_demo_cli_ctx_t));
     xqc_demo_cli_init_ctx(ctx, args);
 
     /* engine event */

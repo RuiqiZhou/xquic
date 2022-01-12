@@ -32,7 +32,7 @@ xqc_decoder_create(xqc_log_t *log, size_t max_dtable_cap)
         return NULL;
     }
 
-    dec->max_ents = xqc_dtable_max_entry_cnt(max_dtable_cap);;
+    dec->max_ents = xqc_dtable_max_entry_cnt(max_dtable_cap);
     dec->log = log;
 
     return dec;
