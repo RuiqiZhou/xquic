@@ -114,7 +114,7 @@ xqc_h3_hdr_type(unsigned char *name, size_t nlen)
         break;
     case 4:
         switch (name[3]) {
-            case 'e':
+        case 'e':
             if (xqc_memeq("dat", name, 3)) {
                 return XQC_HDR_DATE;
             }

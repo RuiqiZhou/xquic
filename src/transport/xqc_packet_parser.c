@@ -1071,7 +1071,6 @@ xqc_packet_parse_long_header(xqc_connection_t *c,
 
     /* don't update packet_in->pos = pos here, need prefix inside */
     switch (type) {
-
     case XQC_PTYPE_INIT:
         ret = xqc_packet_parse_initial(c, packet_in);
         break;

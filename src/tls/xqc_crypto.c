@@ -65,7 +65,7 @@ xqc_crypto_create(uint32_t cipher_id, xqc_log_t *log)
     xqc_vec_init(&crypto->keys.rx_ckm.key);
     xqc_vec_init(&crypto->keys.rx_ckm.iv);
 
-    switch(cipher_id) {
+    switch (cipher_id) {
     /* TLS_AES_128_GCM_SHA256 */
     case XQC_TLS13_AES_128_GCM_SHA256:
         xqc_aead_init_aes_gcm(&crypto->pp_aead, 128);

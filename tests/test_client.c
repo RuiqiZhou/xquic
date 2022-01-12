@@ -1937,7 +1937,7 @@ int main(int argc, char *argv[]) {
 
     int ch = 0;
     while ((ch = getopt(argc, argv, "a:p:P:n:c:Ct:T1s:w:r:l:Ed:u:H:h:Gx:6NMi:V:q:o:")) != -1) {
-        switch(ch) {
+        switch (ch) {
         case 'a': /* Server addr. */
             printf("option addr :%s\n", optarg);
             snprintf(server_addr, sizeof(server_addr), optarg);

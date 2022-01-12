@@ -1212,7 +1212,7 @@ int main(int argc, char *argv[]) {
 
     int ch = 0;
     while ((ch = getopt(argc, argv, "p:ec:Cs:w:r:l:u:x:6bS:o:")) != -1) {
-        switch(ch) {
+        switch (ch) {
         case 'p': /* Server port. */
             printf("option port :%s\n", optarg);
             server_port = atoi(optarg);

@@ -669,8 +669,8 @@ xqc_demo_cli_hq_req_send(xqc_hq_request_t *hqr, xqc_demo_cli_user_stream_t *user
 
     ret = xqc_hq_request_send_req(hqr, user_stream->send_buf);
     if (ret < 0) {
-        switch (-ret)
-        {
+        switch (-ret) {
+        
         case XQC_EAGAIN:
             return 0;
         
@@ -1099,8 +1099,8 @@ xqc_demo_cli_init_conneciton_settings(xqc_conn_settings_t* settings,
     xqc_demo_cli_client_args_t *args)
 {
     xqc_cong_ctrl_callback_t cong_ctrl;
-    switch (args->net_cfg.cc)
-    {
+    switch (args->net_cfg.cc) {
+    
     case CC_TYPE_BBR:
         cong_ctrl = xqc_bbr_cb;
         break;
@@ -1265,8 +1265,8 @@ xqc_demo_cli_parse_args(int argc, char *argv[], xqc_demo_cli_client_args_t *args
 {
     int ch = 0;
     while ((ch = getopt(argc, argv, "a:p:c:Ct:S:0m:A:D:l:L:k:K:U:")) != -1) {
-        switch(ch)
-        {
+        switch (ch) {
+        
         /* server ip */
         case 'a':
             printf("option addr :%s\n", optarg);
@@ -1283,8 +1283,8 @@ xqc_demo_cli_parse_args(int argc, char *argv[], xqc_demo_cli_client_args_t *args
         case 'c':
             printf("option cong_ctl :%s\n", optarg);
             /* r:reno b:bbr c:cubic */
-            switch (*optarg)
-            {
+            switch (*optarg) {
+            
             case 'b':
                 args->net_cfg.cc = CC_TYPE_BBR;
                 break;
@@ -1326,8 +1326,8 @@ xqc_demo_cli_parse_args(int argc, char *argv[], xqc_demo_cli_client_args_t *args
         /* multi connections */
         case 'm':
             printf("option multi connection: on\n");
-            switch (atoi(optarg))
-            {
+            switch (atoi(optarg)) {
+            
             case 0:
                 args->net_cfg.mode = MODE_SCMR;
                 break;
@@ -1719,8 +1719,8 @@ xqc_demo_cli_init_xquic_engine(xqc_demo_cli_ctx_t *ctx, xqc_demo_cli_client_args
         return XQC_ERROR;
     }
 
-    switch (args->env_cfg.log_level)
-    {
+    switch (args->env_cfg.log_level) {
+    
     case 'd':
         config.cfg_log_level = XQC_LOG_DEBUG;
         break;
@@ -2059,8 +2059,8 @@ void
 xqc_demo_cli_init_tasks(xqc_demo_cli_ctx_t *ctx)
 {
     ctx->task_ctx.mode = ctx->args->net_cfg.mode;
-    switch (ctx->args->net_cfg.mode)
-    {
+    switch (ctx->args->net_cfg.mode) {
+    
     case MODE_SCMR:
         xqc_demo_cli_init_scmr(&ctx->task_ctx, ctx->args);
         break;
