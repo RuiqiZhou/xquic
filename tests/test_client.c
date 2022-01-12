@@ -197,7 +197,7 @@ save_session_cb(const char * data, size_t data_len, void *user_data)
 
     FILE * fp  = fopen("test_session", "wb");
     int write_size = fwrite(data, 1, data_len, fp);
-    if(data_len != write_size){
+    if (data_len != write_size) {
         printf("save _session_cb error\n");
         fclose(fp);
         return;
@@ -215,7 +215,7 @@ save_tp_cb(const char * data, size_t data_len, void * user_data)
 
     FILE * fp = fopen("tp_localhost", "wb");
     int write_size = fwrite(data, 1, data_len, fp);
-    if(data_len != write_size){
+    if (data_len != write_size) {
         printf("save _tp_cb error\n");
         fclose(fp);
         return;
@@ -894,7 +894,7 @@ xqc_client_stream_read_notify(xqc_stream_t *stream, void *user_data)
             printf("fwrite error\n");
             return -1;
         }
-        if(save) fflush(user_stream->recv_body_fp);
+        if (save) fflush(user_stream->recv_body_fp);
 
         /* write received body to memory */
         if (g_echo_check && user_stream->recv_body_len + read <= user_stream->send_body_len) {
@@ -936,7 +936,7 @@ xqc_client_stream_read_notify(xqc_stream_t *stream, void *user_data)
         /*{
             FILE* fp = NULL;
             fp = fopen("eval_result.txt", "a+");
-            if (fp == NULL){
+            if (fp == NULL) {
                 exit(1);
             }
 
@@ -1452,7 +1452,7 @@ int xqc_client_request_read_notify(xqc_h3_request_t *h3_request, xqc_request_not
         /*{
             FILE* fp = NULL;
             fp = fopen("eval_result.txt", "a+");
-            if (fp == NULL){
+            if (fp == NULL) {
                 exit(1);
             }
 
@@ -1721,7 +1721,7 @@ xqc_client_timeout_callback(int fd, short what, void *arg)
     /*{
         FILE* fp = NULL;
         fp = fopen("eval_result.txt", "a+");
-        if (fp == NULL){
+        if (fp == NULL) {
             exit(1);
         }
 

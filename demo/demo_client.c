@@ -519,7 +519,7 @@ xqc_demo_cli_save_tp_cb(const char *data, size_t data_len, void *conn_user_data)
     }
 
     int write_size = fwrite(data, 1, data_len, fp);
-    if(data_len != write_size){
+    if (data_len != write_size) {
         fclose(fp);
         return;
     }

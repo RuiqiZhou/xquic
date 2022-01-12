@@ -1948,7 +1948,7 @@ xqc_send_ctl_retire_cid_timeout(xqc_send_ctl_timer_type type, xqc_usec_t now, vo
         }
     }
 
-    if (conn->scid_set.cid_set.retired_cnt > 0){
+    if (conn->scid_set.cid_set.retired_cnt > 0) {
         if (next_time == XQC_MAX_UINT64_VALUE) {
             xqc_log(conn->log, XQC_LOG_ERROR, "|next_time is not assigned a value|");
             return;

@@ -39,7 +39,7 @@ static inline xqc_int_t
 xqc_vec_assign(xqc_vec_t * vec, const uint8_t * data, size_t data_len)
 {
     vec->base = xqc_malloc(data_len);
-    if(vec->base == NULL){
+    if (vec->base == NULL) {
         return -XQC_EMALLOC;
     }
     memcpy(vec->base, data, data_len);

@@ -735,12 +735,12 @@ xqc_engine_recv_batch(xqc_engine_t *engine, xqc_connection_t *conn)
 }
 
 
-void xqc_engine_finish_recv (xqc_engine_t *engine){
+void xqc_engine_finish_recv (xqc_engine_t *engine) {
     xqc_engine_main_logic(engine);
 }
 
 
-void xqc_engine_main_logic_internal(xqc_engine_t *engine, xqc_connection_t *conn){
+void xqc_engine_main_logic_internal(xqc_engine_t *engine, xqc_connection_t *conn) {
     if (conn->conn_flag & XQC_CONN_FLAG_CANNOT_DESTROY) {
         return;
     }

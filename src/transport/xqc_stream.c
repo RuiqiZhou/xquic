@@ -1148,7 +1148,7 @@ xqc_stream_send (xqc_stream_t *stream, unsigned char *send_data, size_t send_dat
         }
 
         if (check_app_limit) {
-            if(xqc_sample_check_app_limited(&conn->conn_send_ctl->sampler, 
+            if (xqc_sample_check_app_limited(&conn->conn_send_ctl->sampler, 
                 conn->conn_send_ctl))
             {
                 /* If we are app-limited, we should reset the next scheduling 
@@ -1192,7 +1192,7 @@ do_buff:
         }
     }
 
-    if((!conn->first_data_send_time) && ((stream->stream_type == XQC_CLI_BID) || (stream->stream_type == XQC_SVR_BID))){
+    if ((!conn->first_data_send_time) && ((stream->stream_type == XQC_CLI_BID) || (stream->stream_type == XQC_SVR_BID))) {
         conn->first_data_send_time = xqc_monotonic_timestamp();
     }
 

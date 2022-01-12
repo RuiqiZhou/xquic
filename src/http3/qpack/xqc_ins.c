@@ -74,7 +74,7 @@ xqc_ins_parse_set_dtable_capacity(unsigned char *buf, uint64_t buf_len, xqc_ins_
     ssize_t read;
     int fin = 0;
 
-    switch (ctx->state){
+    switch (ctx->state) {
     case XQC_INS_ES_OPCODE:
         ctx->state = XQC_INS_ES_CAPACITY;
         xqc_prefixed_int_init(&ctx->capacity, 5);
