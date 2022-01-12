@@ -100,7 +100,7 @@ typedef struct user_conn_s {
 typedef struct xqc_user_path_s {
     int                 path_fd;
     uint64_t            path_id;
-    
+
     struct sockaddr    *peer_addr;
     socklen_t           peer_addrlen;
     struct sockaddr    *local_addr;
@@ -309,7 +309,7 @@ xqc_client_write_socket(const unsigned char *buf, size_t size,
     /* COPY to run corruption test cases */
     unsigned char send_buf[XQC_PACKET_TMP_BUF_LEN];
     size_t send_buf_size = 0;
-    
+
     if (size > XQC_PACKET_TMP_BUF_LEN) {
         printf("xqc_client_write_socket err: size=%zu is too long\n", size);
         return XQC_SOCKET_ERROR;
@@ -334,7 +334,7 @@ xqc_client_write_socket(const unsigned char *buf, size_t size,
 
         g_last_sock_op_time = now();
 
-        if (TEST_DROP) { 
+        if (TEST_DROP) {
             return send_buf_size;
         }
         if (g_test_case == 5) { /* socket send fail */

@@ -452,7 +452,7 @@ xqc_demo_cli_open_keylog_file(xqc_demo_cli_ctx_t *ctx)
         return -1;
     }
 
-    return 0;    
+    return 0;
 }
 
 int
@@ -672,7 +672,7 @@ xqc_demo_cli_hq_req_send(xqc_hq_request_t *hqr, xqc_demo_cli_user_stream_t *user
         switch (-ret) {
         case XQC_EAGAIN:
             return 0;
-        
+
         default:
             printf("send stream failed, ret: %Zd\n", ret);
             return -1;
@@ -1102,7 +1102,7 @@ xqc_demo_cli_init_conneciton_settings(xqc_conn_settings_t* settings,
     case CC_TYPE_BBR:
         cong_ctrl = xqc_bbr_cb;
         break;
-    
+
     case CC_TYPE_CUBIC:
         cong_ctrl = xqc_reno_cb;
         break;
@@ -1461,7 +1461,7 @@ xqc_demo_cli_format_h3_req(xqc_http_header_t *headers, size_t sz, xqc_demo_cli_r
         headers[i] = req_hdr[i];
     }
 
-    return req_sz;    
+    return req_sz;
 }
 
 int
@@ -2010,7 +2010,7 @@ xqc_demo_cli_task_schedule_callback(int fd, short what, void *arg)
         }
     }
 
-    /* start next round */ 
+    /* start next round */
     event_add(ctx->ev_task, &tv_task_schedule);
 }
 

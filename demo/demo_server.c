@@ -280,7 +280,7 @@ xqc_demo_svr_open_keylog_file(xqc_demo_svr_ctx_t *ctx)
         return -1;
     }
 
-    return 0;    
+    return 0;
 }
 
 int

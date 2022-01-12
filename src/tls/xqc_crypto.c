@@ -438,7 +438,7 @@ xqc_crypto_derive_keys(xqc_crypto_t *crypto, const uint8_t *secret, size_t secre
         p_ckm = &crypto->keys.tx_ckm;
         p_hp = &crypto->keys.tx_hp;
         break;
-    
+
     default:
         xqc_log(crypto->log, XQC_LOG_ERROR, "|illegal crypto secret type|type:%d|", type);
         return -XQC_TLS_INVALID_ARGUMENT;
