@@ -37,8 +37,8 @@
 #define DEFAULT_IP   "127.0.0.1"
 #define DEFAULT_PORT 8443
 
-typedef struct xqc_demo_svr_net_config_s
-{
+typedef struct xqc_demo_svr_net_config_s {
+
     /* server addr info */
     struct sockaddr addr;
     int     addr_len;
@@ -68,8 +68,7 @@ typedef struct xqc_demo_svr_net_config_s
 
 #define SESSION_TICKET_KEY_FILE     "session_ticket.key"
 #define SESSION_TICKET_KEY_BUF_LEN  2048
-typedef struct xqc_demo_svr_quic_config_s
-{
+typedef struct xqc_demo_svr_quic_config_s {
     /* cipher config */
     char cipher_suit[CIPHER_SUIT_LEN];
     char groups[TLS_GROUPS_LEN];
@@ -100,8 +99,7 @@ typedef struct xqc_demo_svr_quic_config_s
 
 
 /* environment config */
-typedef struct xqc_demo_svr_env_config_s
-{
+typedef struct xqc_demo_svr_env_config_s {
     /* log path */
     char    log_path[PATH_LEN];
     int     log_level;
@@ -166,8 +164,7 @@ typedef struct xqc_demo_svr_user_conn_s {
     xqc_demo_svr_ctx_t     *ctx;
 } xqc_demo_svr_user_conn_t;
 
-typedef struct xqc_demo_svr_resource_s
-{
+typedef struct xqc_demo_svr_resource_s {
     FILE       *fp;
     int         total_len;      /* total len of file */
     int         total_offset;   /* total sent offset of file */

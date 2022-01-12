@@ -85,8 +85,8 @@ typedef enum xqc_demo_cli_task_mode_s {
 
 
 /* network arguments */
-typedef struct xqc_demo_cli_net_config_s
-{
+typedef struct xqc_demo_cli_net_config_s {
+
     /* server addr info */
     struct sockaddr_in6 addr;
     int                 addr_len;
@@ -125,8 +125,7 @@ typedef struct xqc_demo_cli_net_config_s
 #define TRANSPORT_PARAMS_FILE       "transport_params"
 #define TOKEN_FILE                  "token"
 
-typedef struct xqc_demo_cli_quic_config_s
-{
+typedef struct xqc_demo_cli_quic_config_s {
     /* alpn protocol of client */
     xqc_demo_cli_alpn_type_t alpn_type;
     char alpn[16];
@@ -160,8 +159,8 @@ typedef struct xqc_demo_cli_quic_config_s
 #define OUT_DIR  "."
 
 /* environment config */
-typedef struct xqc_demo_cli_env_config_s
-{
+typedef struct xqc_demo_cli_env_config_s {
+
     /* log path */
     char    log_path[256];
     int     log_level;
@@ -190,8 +189,7 @@ typedef struct xqc_demo_cli_env_config_s
 #define g_host ""
 
 /* args of one single request */
-typedef struct xqc_demo_cli_request_s
-{
+typedef struct xqc_demo_cli_request_s {
     char            path[RESOURCE_LEN];         /* request path */
     char            scheme[8];                  /* request scheme, http/https */
     REQUEST_METHOD  method;
@@ -238,8 +236,8 @@ typedef enum xqc_demo_cli_task_status_s {
     TASK_STATUS_FAILED,
 } xqc_demo_cli_task_status_t;
 
-typedef struct xqc_demo_cli_task_schedule_info_s
-{
+typedef struct xqc_demo_cli_task_schedule_info_s {
+
     xqc_demo_cli_task_status_t  status;         /* task status */
     int                         req_create_cnt; /* streams created */
     int                         req_sent_cnt;
@@ -252,8 +250,7 @@ typedef struct xqc_demo_cli_task_schedule_info_s
  * info of all requests, the client will exit when all
  * tasks are finished or closed
  */
-typedef struct xqc_demo_cli_task_schedule_s
-{
+typedef struct xqc_demo_cli_task_schedule_s {
     /* the cnt of tasks that been running or have been ran */
     int idx;
 
