@@ -365,8 +365,8 @@ xqc_bbr2_adapt_upper_bounds(xqc_bbr2_t *bbr2, xqc_sample_t *sampler)
          * then probe up again, this time letting inflight persist at
          * inflight_hi for a round trip, then accelerating beyond.
          */
-        if (bbr2->mode == BBR2_PROBE_BW &&
-            bbr2->stopped_risky_probe && !bbr2->prev_probe_too_high)
+        if (bbr2->mode == BBR2_PROBE_BW 
+            && bbr2->stopped_risky_probe && !bbr2->prev_probe_too_high)
         {
             xqc_bbr2_enter_probe_refill(bbr2, sampler, 0);
             return TRUE; /* yes, decided state transition */
@@ -391,8 +391,8 @@ xqc_bbr2_adapt_upper_bounds(xqc_bbr2_t *bbr2, xqc_sample_t *sampler)
             bbr2->inflight_hi = sampler->tx_in_flight;
         }
 
-        if (bbr2->mode == BBR2_PROBE_BW &&
-            bbr2->cycle_idx == BBR2_BW_PROBE_UP)
+        if (bbr2->mode == BBR2_PROBE_BW 
+            && bbr2->cycle_idx == BBR2_BW_PROBE_UP)
             xqc_bbr2_probe_inflight_hi_upward(bbr2, sampler);
     }
 

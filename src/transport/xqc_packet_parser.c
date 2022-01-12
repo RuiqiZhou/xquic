@@ -425,8 +425,8 @@ xqc_packet_parse_initial(xqc_connection_t *c, xqc_packet_in_t *packet_in)
     packet_in->pi_pkt.pkt_type = XQC_PTYPE_INIT;
     packet_in->pi_pkt.pkt_pns = XQC_PNS_INIT;
 
-    if (c->conn_state == XQC_CONN_STATE_SERVER_INIT &&
-        !(c->conn_flag & XQC_CONN_FLAG_SVR_INIT_RECVD))
+    if (c->conn_state == XQC_CONN_STATE_SERVER_INIT 
+        && !(c->conn_flag & XQC_CONN_FLAG_SVR_INIT_RECVD))
     {
         if (XQC_BUFF_LEFT_SIZE(packet_in->buf, end) < XQC_PACKET_INITIAL_MIN_LENGTH) {
             xqc_log(c->log, XQC_LOG_ERROR, "|initial size too small|%z|",

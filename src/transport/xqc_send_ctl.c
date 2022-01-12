@@ -142,8 +142,8 @@ xqc_send_ctl_get_packet_out(xqc_send_ctl_t *ctl, unsigned need, xqc_pkt_type_t p
 
     xqc_list_for_each_reverse(pos, &ctl->ctl_send_packets) {
         packet_out = xqc_list_entry(pos, xqc_packet_out_t, po_list);
-        if (packet_out->po_pkt.pkt_type == pkt_type &&
-            packet_out->po_buf_size - packet_out->po_used_size >= need) {
+        if (packet_out->po_pkt.pkt_type == pkt_type 
+            && packet_out->po_buf_size - packet_out->po_used_size >= need) {
             return packet_out;
         }
     }
