@@ -1,4 +1,7 @@
 # XQUIC
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/35094a8efa54488386eaa2d0f8fd103b)](https://app.codacy.com/gh/RuiqiZhou/xquic?utm_source=github.com&utm_medium=referral&utm_content=RuiqiZhou/xquic&utm_campaign=Badge_Grade_Settings)
+
 <img src="docs/images/xquic_logo.png" alt="xquic logo"/>
 
 ![GitHub](https://img.shields.io/github/license/alibaba/xquic)
