@@ -147,4 +147,54 @@ jobs:
         cmake -DPLATFORM=mac -DSSL_TYPE=${SSL_TYPE_STR} -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
         make -j
 
+  build-windows:
+
+    name: Build on Windows
+
+    runs-on: ${{ matrix.runs-on }}
+
+    strategy:
+      matrix:
+        runs-on: [windows-latest]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+        submodules: 'recursive'
+
+    - name: Update Submodule
+      run: |
+        git submodule update --init --recursive
+
+    - name: Set up Windows
+      shell: bash
+      run: | 
+        VCPKG_DEFAULT_TRIPLET=x64-windows-static
+        vcpkg install libevent:x64-windows-static
+
+    - name: Install MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build BoringSSL
+      run: |
+        git clone https://github.com/google/boringssl.git ./third_party/boringssl
+        cd ./third_party/boringssl
+        mkdir -p build
+        cd build
+        cmake  -DCMAKE_GENERATOR_PLATFORM=x64 --config Debug -DBUILD_SHARED_LIBS=0 -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" ..
+        msbuild.exe ALL_BUILD.vcxproj
+
+    - name: Build XQUIC
+      run: |
+        SSL_TYPE_STR="boringssl"
+        SSL_PATH_STR="${PWD}/third_party/boringssl"
+        SSL_INC_PATH_STR="${PWD}/third_party/boringssl/include"
+        SSL_LIB_PATH_STR="${PWD}/third_party/boringssl/build/ssl/libssl.a;${PWD}/third_party/boringssl/build/crypto/libcrypto.a"
+        mkdir -p build
+        cd build
+        cmake -DSSL_TYPE=${SSL_TYPE_STR} -DSSL_PATH=${SSL_PATH_STR} -DSSL_INC_PATH=${SSL_INC_PATH_STR} -DSSL_LIB_PATH=${SSL_LIB_PATH_STR} ..
+        msbuild.exe xquic.vcxproj
+
 
