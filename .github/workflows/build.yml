@@ -106,7 +106,7 @@ jobs:
           echo "No CODACY_PROJECT_TOKEN provided for Codacy report"
         fi
 
-    build-macos:
+  build-macos:
 
     name: Build on macOS
 
