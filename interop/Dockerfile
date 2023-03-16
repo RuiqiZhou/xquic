@@ -11,7 +11,7 @@ RUN apt-get update && \
         git cmake golang make autoconf automake libtool \
         libevent-dev net-tools && \
     go env -w GOPROXY=https://goproxy.cn && \
-    git clone --depth 1 --branch interop https://github.com/alibaba/xquic.git && \
+    git clone --depth 1 --branch interop https://github.com/ruiqizhou/xquic.git && \
     git clone --depth 1 https://github.com/google/boringssl.git xquic/third_party/boringssl && \
     cd xquic/third_party/boringssl/ && \
     if [ ! -d build ]; then mkdir build; else rm -rf build; mkdir build; fi && \
